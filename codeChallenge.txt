@@ -1,0 +1,86 @@
+//ZoomCare Coding Challenge
+
+//Test Cases:
+Navigate to https://www.zoomcare.com/scheduling
+Feature to test: Scheduling Page
+From the Scheduling page based on the dropdowns, there can be multiple test cases against each city state and service provided.
+Using that, I can create many combinations of test cases specific to that feature. If one location is selected against each service and 
+with that I can come up with over 140 test cases. Below I have set an example of a few test cases that can be automated with repitition steps, instead of
+creating and testing multiple tests manually. These can be automated using POM or with BDD framework as well. Depends on the company and team.
+Test Cases: Check UI on scheduling 
+1. Select from scheduling your visit dropdown -choose location by city and state - Select Portland, OR
+   Choose Service dropdown- select a service provided- Illness/Injury then select Schedule now -> Check for Actual results vs Expected results
+2. Select Seattle, Wa from location dropdown, Select Choose Service - 5-min Flu Shot
+3.Select Seattle, Wa from location dropdown, Select choose service- primary care
+then Validate Schedule now button is enabled and opens a new page
+
+
+
+//Automation Instructions- Directions for User:
+-To create a framework for Zoomcare, Hybrid framework (a combination of data driven and keyboard driven) can be used to build the project using with Maven where code
+can be organized and kept in a hierarchy of different folder structures. I am using Java for programming language, Page Object Model to avoid code duplication, 
+TestNG for running the project using annotations like @Before, @After, @Test are used to run specific tests in a flow. The Automation framework will inlcude the following:
+
+Project Building Tool: -> Maven- 
+In POM.xml file is where I will keep the project under, I will have different types of plugins under dependencies, different types of jars, and properties to set
+the project environment. 
+There are four main folder structures like src/main/java - I will create several packages
+In the folder structures I have a constant package where the path of necessary files are kept, have all the testing class based on the scheduling of the feature. To design 
+test cases, I used TestNg to provide the annotations in which the flow I want to automate my test like parameterization, data provider etc.
+All the testing data in src/test/resources in excel or properties format. I will organize my classes in the order where I will store my functions methods and objects will be stored
+using page object model to create and use them dynamically in my code (object repository).
+There are also other folders at project level like driver folder, config folder, reporting folder. Each of these folders are kept separately to performt those specific tasks.
+There is also the xml file to run our test cases based on the testing suite.
+
+
+//ZoomCare Automation Framework Hierarchy: 
+
+public class ZoomCareBaseTest {
+	//Base test Class to open and close browser using annotation to run project in specific flow
+  
+	WebDriver driver;
+	//Open blank browser
+	@Before
+	public void openChromeBrowser() {
+	 
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\nafes_zaessqh\\Downloads\\chromedriver_win32\\chromedriver.exe"); 
+		
+		WebDriver drivers = new ChromeDriver();
+		drivers.get("https://www.Zoomcare.com/");
+	}
+	
+	@After
+	public void closeBrowser() {
+		driver.close();
+	}
+}
+
+public class SmokeTest extends BaseTest{
+	
+	@Test
+	public void test1() throws InterruptedException {
+		CoreSteps cs = new CoreSteps(driver);
+		cs.openZoomcare();
+		cs.verifyZoomLogo();
+		Helper.myWait();
+		cs.clickOnschedule();
+		cs.clickOnLocations();
+		Helper.myWait();
+		cs.clickOnChooseLocation();
+		Helper.myWait();
+		cs.clickOnChooseService();
+		Helper.myWait();
+		cs.clickOnScheduleNowButton();
+		cs.verifyHomeLogo();
+		System.out.println("test done!");
+		
+	}
+  
+  
+//Create a test scipt that includes mutliple combinations that go against each test case on Scheduling Page...
+
+To be continued..
+
+
+
+
